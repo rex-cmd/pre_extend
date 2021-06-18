@@ -28,6 +28,22 @@ class A
 end
 A.out_extend
 
+
+module C
+	def log
+		puts 'in module'
+		super
+	end
+end
+
+class D
+	def self.log
+		puts 'in class'
+	end
+end
+
+D.singleton_class.prepend(C)
+D.log
 # puts A.singleton_clputs ass.instance_methods.include?(:log)
 # puts M.class
 # puts M.singleton_class
