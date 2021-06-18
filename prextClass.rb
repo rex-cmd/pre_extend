@@ -1,27 +1,36 @@
 
 module M
 	def log
-		puts 'I am from module too'
-	end
-	def lag
-		puts 'i am from module'
+		puts 'I am from module'
+		super
 	end
 end
 class A
-	def self.pre_extend(m)
-		self.singleton_class.define_method :out_extend do 
-			m.instance_methods.each do |i|
-				self.singleton_class.define_method i.to_sym, m.instance_method(i.to_sym)
-				self.send(i.to_sym)
+		# def self.pre_extend(m)
+		# 	# self.singleton_class.define_method :out_extend do 
+		# 	# 	m.instance_methods.each do |i|
+		# 	# 		self.singleton_class.define_method i.to_sym, m.instance_method(i.to_sym)
+		# 	# 		self.send(i.to_sym)
+		# 	# 	end
+		#   # end
+		# end
+		def self.pre_extend(m)
+			self.singleton_class.define_method :out_extend do 
+				# puts m.instance_methods.include?(:log)
+				m.instance_method(:log).bind(A.new).call
 			end
-	  end
-	end
-	def self.log
-		puts 'class log'
-	end
-	pre_extend M
+		end
+	
+		def log
+		 	puts 'class log'
+		end
+		pre_extend M
 end
 A.out_extend
+
+# puts A.singleton_clputs ass.instance_methods.include?(:log)
+# puts M.class
+# puts M.singleton_class
 
 # A.singleton_class.define_method :name, M.instance_method(:log)
 # puts A.singleton_class.ancestors
