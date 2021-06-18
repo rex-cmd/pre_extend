@@ -14,7 +14,7 @@ class A
 				self.singleton_class.define_method i.to_sym, m.instance_method(i.to_sym)
 				self.send(i.to_sym)
 			end
-	  end
+	         end
 	end
 	def self.log
 		puts 'class log'
